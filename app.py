@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_mail import Mail, Message
+import pymysql
 
 app = Flask(__name__)
 application = app
@@ -15,7 +16,12 @@ app.config['MAIL_DEFAULT_SENDER'] = 'test@dtechnologys.com'
 # Initialize Flask-Mail
 mail = Mail(app)
 
-
+DB_CONFIG = {
+    'host': 'localhost',        # Replace with your database host
+    'user': 'myuser',     # Replace with your MySQL username
+    'password': 'mypassword', # Replace with your MySQL password
+    'database': 'mydatabase', # Replace with your database name
+}
 
 
 
@@ -28,6 +34,31 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+
+@app.route('/db_status')
+def db_status():
+    try:
+        # Attempt to connect to the database
+        connection = pymysql.connect(**DB_CONFIG)
+        cursor = connection.cursor()
+        cursor.execute("SELECT 1")  # Execute a simple query
+        connection_status = True
+    except Exception as e:
+        connection_status = False
+        error_message = str(e)
+    finally:
+        if 'connection' in locals() and connection:
+            connection.close()
+
+    # Render the template with the connection status
+    return render_template('db_status.html', status=connection_status, error=error_message if not connection_status else None)
+
+
+
+
+
+
 
 
 @app.route('/contact', methods=['GET', 'POST'])
