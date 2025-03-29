@@ -17,10 +17,11 @@ app.config['MAIL_DEFAULT_SENDER'] = 'test@dtechnologys.com'
 mail = Mail(app)
 
 DB_CONFIG = {
-    'host': 'localhost',        # Replace with your database host
-    'user': 'myuser',     # Replace with your MySQL username
-    'password': 'mypassword', # Replace with your MySQL password
-    'database': 'mydatabase', # Replace with your database name
+    'host': 'up-de-fra1-mysql-1.db.run-on-seenode.com',        # Replace with your database host
+    'user': 'db_uk3zmq6s9qmm',     # Replace with your MySQL username
+    'password': 'NPthZxxkq36DNSgL624HmhbZ', # Replace with your MySQL password
+    'database': 'db_uk3zmq6s9qmm', # Replace with your database name
+    'port': 11550,
 }
 
 
